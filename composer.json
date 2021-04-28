@@ -1,0 +1,30 @@
+{
+    "name": "proklung/symfony-guzzle-bundle",
+    "description": "Symfony bundle for work with Guzzle.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gavrilov Fedy",
+            "email": "fedor.gavrilov.75@mail.ru",
+            "homepage": "https://github.com/ProklUng"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ProklUng/symfony.guzzle.bundle/issues",
+        "source": "https://github.com/ProklUng/symfony.guzzle.bundle"
+    },
+    "autoload": {
+        "psr-4": {
+            "Prokl\\GuzzleBundle\\": ""
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "symfony/dependency-injection": "^4.0 || ^5.0",
+        "symfony/http-kernel": "^4.0 || ^5.0",
+        "symfony/config": "~4|~5",
+        "guzzlehttp/guzzle": "~6|~7",
+        "twig/twig": "~1 | ~2 "
+    }
+}
