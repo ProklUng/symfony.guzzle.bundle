@@ -2,6 +2,7 @@
 
 Форк [пакета](https://github.com/csarrazi/CsaGuzzleBundle), доработано под личные нужды (добавлен адаптер для кэширования в Битриксе, и т.п).  
 
+
 ## Установка
 
 1) `composer require proklung/symfony-guzzle-bundle`
@@ -227,6 +228,28 @@ acme.client:
 
     tags:
       - { name: csa_guzzle.client, middleware: 'my_middleware another_middleware'}
+```
+
+## BitrixCacheAdapter
+
+Определяется сервис кэширования. Например, так:
+
+```yaml
+  bitrix.psr.cacher:
+    class: WebArch\BitrixCache\AntiStampedeCacheAdapter
+    arguments: ['/', 3600, 'cache/s1/psr-cache']
+
+  bitrix.psr.cacher.adapter:
+    class: Local\Bundles\GuzzleBundle\Middlewares\Cache\Adapter\PsrAdapter
+    arguments: ['@bitrix.psr.cacher', 3600]
+```
+
+И в конфигурации бандла указывается:
+
+```yaml
+  cache:
+    enabled: true
+    adapter: bitrix.psr.cacher.adapter
 ```
 
 ### Available middleware
