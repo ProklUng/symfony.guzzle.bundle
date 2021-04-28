@@ -11,14 +11,6 @@
 
 ### Конфигурация
 
-To enable the data collector (only in the `dev` environment, you may simply
-configure the CsaGuzzleBundle as follows:
-
-```yml
-csa_guzzle:
-    profiler: '%kernel.debug%'
-```
-
 You may also enable the included logger, in order log outcoming requests:
 
 ```yml
