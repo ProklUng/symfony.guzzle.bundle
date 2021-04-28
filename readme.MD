@@ -230,7 +230,7 @@ acme.client:
       - { name: csa_guzzle.client, middleware: 'my_middleware another_middleware'}
 ```
 
-## BitrixCacheAdapter
+### BitrixCacheAdapter
 
 Определяется сервис кэширования. Например, так:
 
