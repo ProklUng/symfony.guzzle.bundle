@@ -16,8 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Prokl\\GuzzleBundle\\": ""
-        }
+            "Prokl\\GuzzleBundle\\": "",
+            "Prokl\\GuzzleBundle\\Tests\\": "Tests"
+        },
+        "exclude-from-classmap": [
+            "Tests/"
+        ]
     },
     "require": {
         "php": ">=7.1",
@@ -30,5 +34,9 @@
         "twig/twig": "~1 | ~2 ",
         "doctrine/cache": "^1",
         "symfony/filesystem": "~4|~5"
+    },
+    "require-dev": {
+        "proklung/phpunit-testing-tools": "^1.3.0"
     }
+
 }

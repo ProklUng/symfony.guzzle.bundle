@@ -27,18 +27,23 @@ class PsrAdapter implements StorageAdapterInterface
      */
     private $namingStrategy;
 
-    /** @var integer $ttl Время жизни кэша. */
+    /**
+     * @var integer $ttl Время жизни кэша.
+     */
     private $ttl;
 
     /**
-     * @param CacheItemPoolInterface       $cache
-     * @param integer                      $ttl
-     * @param NamingStrategyInterface|null $namingStrategy
+     * @param CacheItemPoolInterface       $cache          Кэшер.
+     * @param integer                      $ttl            Время жизни кэша.
+     * @param NamingStrategyInterface|null $namingStrategy Формирование ключа кэша.
      */
-    public function __construct(CacheItemPoolInterface $cache, $ttl = 0, NamingStrategyInterface $namingStrategy = null)
-    {
+    public function __construct(
+        CacheItemPoolInterface $cache,
+        int $ttl = 0,
+        ?NamingStrategyInterface $namingStrategy = null
+    ) {
         $this->cache = $cache;
-        $this->namingStrategy = $namingStrategy ?: new PostHashNamingStrategy();
+        $this->namingStrategy = $namingStrategy ?? new PostHashNamingStrategy();
         $this->ttl = $ttl;
     }
 

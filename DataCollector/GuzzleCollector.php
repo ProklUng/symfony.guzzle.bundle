@@ -41,7 +41,7 @@ abstract class InternalGuzzleCollector extends DataCollector
     /**
      * Constructor.
      *
-     * @param int $maxBodySize The max body size to store in the profiler storage
+     * @param integer $maxBodySize The max body size to store in the profiler storage
      */
     public function __construct($maxBodySize = self::MAX_BODY_SIZE, History $history = null)
     {
@@ -155,7 +155,7 @@ abstract class InternalGuzzleCollector extends DataCollector
     }
 
     /**
-     * @return float|int
+     * @return float|integer
      */
     public function getTotalTime()
     {
@@ -206,8 +206,8 @@ if (Kernel::MAJOR_VERSION >= 5) {
     final class GuzzleCollector extends InternalGuzzleCollector
     {
         /**
-         * @param Request $request
-         * @param Response $response
+         * @param Request         $request
+         * @param Response        $response
          * @param \Throwable|null $exception
          */
         public function collect(Request $request, Response $response, \Throwable $exception = null) : void

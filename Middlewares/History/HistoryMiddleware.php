@@ -27,7 +27,7 @@ class HistoryMiddleware
     }
 
     /**
-     * @param callable $handler
+     * @param callable $handler Handler.
      *
      * @return Closure
      */

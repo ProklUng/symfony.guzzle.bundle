@@ -17,17 +17,17 @@ class StreamResponse extends Response
     public const BUFFER_SIZE = 4096;
 
     /**
-     * @var int|mixed $bufferSize
+     * @var integer|mixed $bufferSize
      */
     private $bufferSize;
 
     /**
      * StreamResponse constructor.
      *
-     * @param ResponseInterface $response
-     * @param integer           $bufferSize
+     * @param ResponseInterface $response   Response.
+     * @param integer           $bufferSize Buffer size.
      */
-    public function __construct(ResponseInterface $response, $bufferSize = self::BUFFER_SIZE)
+    public function __construct(ResponseInterface $response, int $bufferSize = self::BUFFER_SIZE)
     {
         parent::__construct(null, $response->getStatusCode(), $response->getHeaders());
 
@@ -44,7 +44,7 @@ class StreamResponse extends Response
         $this->content->seek(0);
 
         for (;;) {
-            $chunk = $this->content->read($this->bufferSize);
+            $chunk = (string)$this->content->read($this->bufferSize);
 
             if ($chunked) {
                 echo sprintf("%x\r\n", strlen($chunk));

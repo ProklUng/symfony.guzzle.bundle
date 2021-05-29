@@ -15,10 +15,10 @@ class LegacyNamingStrategy extends AbstractNamingStrategy
     private $withHost;
 
     /**
-     * @param boolean  $withHost
-     * @param array    $blacklist
+     * @param boolean $withHost
+     * @param array   $blacklist
      */
-    public function __construct($withHost, array $blacklist = [])
+    public function __construct(bool $withHost, array $blacklist = [])
     {
         $this->withHost = $withHost;
 
@@ -31,20 +31,20 @@ class LegacyNamingStrategy extends AbstractNamingStrategy
     public function filename(RequestInterface $request) : string
     {
         if ($this->withHost) {
-            return $this->sanitize(call_user_func_array(
+            return $this->sanitize((string)call_user_func_array(
                 'sprintf',
                 array_merge(['%s_%s_%s-%s____%s'], $this->getPartsWithHost($request))
             ));
         }
 
-        return $this->sanitize(call_user_func_array(
+        return $this->sanitize((string)call_user_func_array(
             'sprintf',
             array_merge(['%s_%s-%s____%s'], $this->getPartsWithoutHost($request))
         ));
     }
 
     /**
-     * @param RequestInterface $request
+     * @param RequestInterface $request Request.
      *
      * @return array
      */
@@ -60,7 +60,7 @@ class LegacyNamingStrategy extends AbstractNamingStrategy
     }
 
     /**
-     * @param RequestInterface $request
+     * @param RequestInterface $request Request.
      *
      * @return array
      */
@@ -77,11 +77,11 @@ class LegacyNamingStrategy extends AbstractNamingStrategy
     /**
      * Sanitizes a filename.
      *
-     * @param string $filename
+     * @param string $filename Filename.
      *
      * @return string
      */
-    private function sanitize($filename): string
+    private function sanitize(string $filename): string
     {
         return preg_replace('/[^a-zA-Z0-9_+=@\-\?\.]/', '-', $filename);
     }

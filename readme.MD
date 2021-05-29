@@ -462,3 +462,16 @@ Full list of logs variables with description:
 
 Reference [Guzzle Log Plugin Docs](http://guzzle3.readthedocs.io/plugins/log-plugin.html#log-plugin)
 
+### Прочее
+
+1) Альтернативный Guzzle Logger - для использования вне рамок бандла - `Prokl\GuzzleBundle\Middlewares\Raw\GuzzleLogger`
+
+```yaml
+  Prokl\GuzzleBundle\Middlewares\Raw\GuzzleLogger:
+    class: Prokl\GuzzleBundle\Middlewares\Raw\GuzzleLogger
+    arguments: ['@logger', '@custom.guzzle.formatter']
+
+  custom.guzzle.formatter:
+    class: GuzzleHttp\MessageFormatter
+    arguments: ['[{date_common_log}] [{request}] "{method} {target} HTTP/{version}" {response}']
+```

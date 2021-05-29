@@ -19,7 +19,7 @@ class MiddlewarePass implements CompilerPassInterface
     public const CLIENT_TAG = 'csa_guzzle.client';
 
     /**
-     * @param ContainerBuilder $container
+     * @param ContainerBuilder $container Container.
      *
      * @return void
      */
@@ -33,7 +33,7 @@ class MiddlewarePass implements CompilerPassInterface
     /**
      * Fetches the list of available middleware.
      *
-     * @param ContainerBuilder $container
+     * @param ContainerBuilder $container Container.
      *
      * @return array
      */
@@ -42,6 +42,10 @@ class MiddlewarePass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds(self::MIDDLEWARE_TAG);
         $middleware = [];
 
+        /**
+         * @var string $id
+         * @var array $tags
+         */
         foreach ($services as $id => $tags) {
             if (count($tags) > 1) {
                 throw new \LogicException(sprintf('Middleware should only use a single \'%s\' tag', self::MIDDLEWARE_TAG));
@@ -67,14 +71,15 @@ class MiddlewarePass implements CompilerPassInterface
 
         krsort($middleware);
 
+        /** @psalm-suppress MixedReturnStatement */
         return call_user_func_array('array_merge', $middleware);
     }
 
     /**
      * Sets up handlers and registers middleware for each tagged client.
      *
-     * @param ContainerBuilder $container
-     * @param array            $middlewareBag
+     * @param ContainerBuilder $container     Container.
+     * @param array            $middlewareBag Middlewares.
      *
      * @return void
      */
@@ -86,6 +91,10 @@ class MiddlewarePass implements CompilerPassInterface
 
         $clients = $container->findTaggedServiceIds(self::CLIENT_TAG);
 
+        /**
+         * @var string $clientId
+         * @var array  $tags
+         */
         foreach ($clients as $clientId => $tags) {
             if (count($tags) > 1) {
                 throw new \LogicException(sprintf('Clients should use a single \'%s\' tag', self::CLIENT_TAG));
@@ -125,8 +134,8 @@ class MiddlewarePass implements CompilerPassInterface
     }
 
     /**
-     * @param Reference|Definition|callable $handler   The configured Guzzle handler
-     * @param ContainerBuilder              $container The container builder
+     * @param Reference|Definition|callable $handler   The configured Guzzle handler.
+     * @param ContainerBuilder              $container The container builder.
      *
      * @return Definition
      */
@@ -149,25 +158,26 @@ class MiddlewarePass implements CompilerPassInterface
     }
 
     /**
-     * @param Definition $handlerStack
-     * @param array      $middlewareBag
+     * @param Definition $handlerStack  Handler stack.
+     * @param array      $middlewareBag Middlewares.
      *
      * @return void
      */
     private function addMiddlewareToHandlerStack(Definition $handlerStack, array $middlewareBag): void
     {
+        /** @var array $middleware */
         foreach ($middlewareBag as $middleware) {
-            $handlerStack->addMethodCall('push', [new Reference($middleware['id']), $middleware['alias']]);
+            $handlerStack->addMethodCall('push', [new Reference((string)$middleware['id']), $middleware['alias']]);
         }
     }
 
     /**
-     * @param array $middlewareBag The list of availables middleware
-     * @param array $tags          The tags containing middleware configuration
+     * @param array $middlewareBag The list of availables middleware.
+     * @param array $tags          The tags containing middleware configuration.
      *
      * @return array The list of middleware to enable for the client
      *
-     * @throws LogicException When middleware configuration is invalid
+     * @throws LogicException When middleware configuration is invalid.
      */
     private function filterClientMiddleware(array $middlewareBag, array $tags)
     {
@@ -176,7 +186,7 @@ class MiddlewarePass implements CompilerPassInterface
             return $middlewareBag;
         }
 
-        $clientMiddlewareList = explode(' ', $tags[0]['middleware']);
+        $clientMiddlewareList = explode(' ', (string)$tags[0]['middleware']);
 
         $whiteList = [];
         $blackList = [];

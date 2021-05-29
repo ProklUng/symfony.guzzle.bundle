@@ -24,7 +24,7 @@ class BitrixAdapter implements StorageAdapterInterface
     private $cache;
 
     /**
-     * @var HashNamingStrategy|NamingStrategyInterface|null $namingStrategy Стратегия наименования.
+     * @var HashNamingStrategy|NamingStrategyInterface $namingStrategy Стратегия наименования.
      */
     private $namingStrategy;
 
@@ -36,8 +36,8 @@ class BitrixAdapter implements StorageAdapterInterface
     /**
      * BitrixAdapter constructor.
      *
-     * @param CPHPCache                    $cacher Кэшер.
-     * @param integer                      $ttl Время жизни кэша.
+     * @param CPHPCache                    $cacher         Кэшер.
+     * @param integer                      $ttl            Время жизни кэша.
      * @param NamingStrategyInterface|null $namingStrategy Стратегия наименования.
      */
     public function __construct(

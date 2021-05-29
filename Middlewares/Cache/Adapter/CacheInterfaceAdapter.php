@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Class CacheInterfaceAdapter
@@ -27,7 +28,9 @@ class CacheInterfaceAdapter implements StorageAdapterInterface
      */
     private $namingStrategy;
 
-    /** @var integer $ttl Время жизни кэша. */
+    /**
+     * @var integer $ttl Время жизни кэша.
+     */
     private $ttl;
 
     /**
@@ -47,6 +50,7 @@ class CacheInterfaceAdapter implements StorageAdapterInterface
 
     /**
      * {@inheritdoc}
+     * @throws InvalidArgumentException
      */
     public function fetch(RequestInterface $request) : ?ResponseInterface
     {
@@ -55,7 +59,7 @@ class CacheInterfaceAdapter implements StorageAdapterInterface
         $data = $this->cache->get($key);
 
         if ($data) {
-            return new Response($data['status'], $data['headers'], $data['body'], $data['version'], $data['reason']);
+            return new Response((int)$data['status'], $data['headers'], $data['body'], $data['version'], $data['reason']);
         }
 
         return null;

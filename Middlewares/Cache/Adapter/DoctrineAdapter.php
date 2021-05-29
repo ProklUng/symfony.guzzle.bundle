@@ -9,32 +9,36 @@ use Prokl\GuzzleBundle\Middlewares\Cache\NamingStrategy\NamingStrategyInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class DoctrineAdapter
+ * @package Prokl\GuzzleBundle\Middlewares\Cache\Adapter
+ */
 class DoctrineAdapter implements StorageAdapterInterface
 {
     /**
-     * @var Cache $cache
+     * @var Cache $cache Cache.
      */
     private $cache;
 
     /**
-     * @var HashNamingStrategy|NamingStrategyInterface|null $namingStrategy
+     * @var HashNamingStrategy|NamingStrategyInterface $namingStrategy Naming strategy.
      */
     private $namingStrategy;
 
     /**
-     * @var integer $ttl
+     * @var integer $ttl Cache ttl.
      */
     private $ttl;
 
     /**
-     * @param Cache $cache
-     * @param int $ttl
-     * @param NamingStrategyInterface|null $namingStrategy
+     * @param Cache                        $cache          Cache.
+     * @param integer                      $ttl            Cache TTL.
+     * @param NamingStrategyInterface|null $namingStrategy Naming strategy.
      */
-    public function __construct(Cache $cache, $ttl = 0, NamingStrategyInterface $namingStrategy = null)
+    public function __construct(Cache $cache, $ttl = 0, ?NamingStrategyInterface $namingStrategy = null)
     {
         $this->cache = $cache;
-        $this->namingStrategy = $namingStrategy ?: new HashNamingStrategy();
+        $this->namingStrategy = $namingStrategy ?? new HashNamingStrategy();
         $this->ttl = $ttl;
     }
 

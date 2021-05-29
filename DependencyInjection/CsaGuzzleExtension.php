@@ -53,11 +53,8 @@ class CsaGuzzleExtension extends Extension
         }
 
         $this->processLoggerConfiguration($config['logger'], $container);
-
         $this->processMockConfiguration($config['mock'], $container, $loader, $config['profiler']['enabled']);
-
         $this->processCacheConfiguration($config['cache'], $container, $config['profiler']['enabled']);
-
         $this->processClientsConfiguration($config, $container, $config['profiler']['enabled']);
     }
 

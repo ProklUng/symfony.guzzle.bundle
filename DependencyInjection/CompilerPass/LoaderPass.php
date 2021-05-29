@@ -18,7 +18,7 @@ class LoaderPass implements CompilerPassInterface
     {
         $ids = $container->findTaggedServiceIds('csa_guzzle.description_loader');
 
-        if (!count($ids)) {
+        if (count($ids) === 0) {
             return;
         }
 
@@ -26,6 +26,10 @@ class LoaderPass implements CompilerPassInterface
 
         $loaders = [];
 
+        /**
+         * @var string $id
+         * @var object $options
+         */
         foreach ($ids as $id => $options) {
             $loaders[] = new Reference($id);
         }

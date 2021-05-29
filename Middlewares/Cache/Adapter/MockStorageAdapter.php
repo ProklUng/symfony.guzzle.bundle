@@ -8,7 +8,6 @@ use Prokl\GuzzleBundle\Middlewares\Cache\NamingStrategy\NamingStrategyInterface;
 use Prokl\GuzzleBundle\Middlewares\Cache\NamingStrategy\SubfolderNamingStrategy;
 use Prokl\GuzzleBundle\Middlewares\Cache\CacheMiddleware;
 use Prokl\GuzzleBundle\Middlewares\Cache\MockMiddleware;
-use GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -39,8 +38,12 @@ class MockStorageAdapter implements StorageAdapterInterface
      * @param array                        $responseHeadersBlacklist
      * @param NamingStrategyInterface|null $namingStrategy
      */
-    public function __construct($storagePath, array $requestHeadersBlacklist = [], array $responseHeadersBlacklist = [], NamingStrategyInterface $namingStrategy = null)
-    {
+    public function __construct(
+        $storagePath,
+        array $requestHeadersBlacklist = [],
+        array $responseHeadersBlacklist = [],
+        ?NamingStrategyInterface $namingStrategy = null
+    ) {
         $this->storagePath = $storagePath;
 
         if ($namingStrategy) {
@@ -86,18 +89,18 @@ class MockStorageAdapter implements StorageAdapterInterface
         $fs = new Filesystem();
         $fs->mkdir(dirname($filename));
 
-        file_put_contents($filename, Psr7\str($response));
+        file_put_contents($filename, Message::toString($response));
         $response->getBody()->rewind();
     }
 
     /**
      * Prefixes the generated file path with the adapter's storage path.
      *
-     * @param string $name
+     * @param string $name Filename.
      *
      * @return string The path to the mock file
      */
-    private function getFilename($name)
+    private function getFilename(string $name) : string
     {
         return $this->storagePath.'/'.$name.'.txt';
     }

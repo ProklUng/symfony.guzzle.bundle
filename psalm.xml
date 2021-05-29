@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    allowStringToStandInForClass="true"
+    allowCoercionFromStringToClassConst="true"
+    findUnusedPsalmSuppress="true"
+    skipChecksOnUnresolvableIncludes="true"
+>
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+        <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
+    </plugins>
+    <projectFiles>
+        <directory name="/"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="Tests"/>
+            <file name="CsaGuzzleBundle.php"/>
+            <file name="DependencyInjection/Configuration.php"/>
+            <file name="DependencyInjection/CsaGuzzleExtension.php"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <MissingConstructor>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </MissingConstructor>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+                <directory name="Middlewares/Cache/Adapter"/>
+            </errorLevel>
+        </DeprecatedClass>
+        <ImplicitToStringCast>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </ImplicitToStringCast>
+        <DuplicateClass>
+            <errorLevel type="suppress">
+                <file name="DataCollector/GuzzleCollector.php"/>
+            </errorLevel>
+        </DuplicateClass>
+        <UnusedVariable>
+            <errorLevel type="suppress">
+                <file name="DataCollector/GuzzleCollector.php"/>
+                <file name="DependencyInjection/CompilerPass/LoaderPass.php"/>
+            </errorLevel>
+        </UnusedVariable>
+        <MissingClosureParamType>
+            <errorLevel type="suppress">
+                <file name="Middlewares/History/HistoryMiddleware.php"/>
+            </errorLevel>
+        </MissingClosureParamType>
+        <MixedInferredReturnType>
+            <errorLevel type="suppress">
+                <directory name="DependencyInjection/CompilerPass"/>
+                <file name="Middlewares/Raw/GuzzleLogger.php"/>
+            </errorLevel>
+        </MixedInferredReturnType>
+        <MixedReturnStatement>
+            <errorLevel type="suppress">
+                <file name="Middlewares/Raw/GuzzleLogger.php"/>
+            </errorLevel>
+        </MixedReturnStatement>
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <directory name="Middlewares/Cache/Adapter"/>
+                <file name="HttpFoundation/StreamResponse.php"/>
+            </errorLevel>
+        </MixedAssignment>
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <directory name="Middlewares/Cache"/>
+            </errorLevel>
+        </MixedAssignment>
+        <MixedArgument>
+            <errorLevel type="suppress">
+                <directory name="Middlewares/Cache"/>
+            </errorLevel>
+        </MixedArgument>
+        <MixedArrayAccess>
+            <errorLevel type="suppress">
+                <directory name="Middlewares/Cache"/>
+                <directory name="DependencyInjection/CompilerPass"/>
+            </errorLevel>
+        </MixedArrayAccess>
+        <InvalidMethodCall>
+            <errorLevel type="suppress">
+                <file name="HttpFoundation/StreamResponse.php"/>
+            </errorLevel>
+        </InvalidMethodCall>
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <file name="Middlewares/Cache/Adapter/BitrixAdapter.php"/>
+            </errorLevel>
+        </UndefinedDocblockClass>
+        <UndefinedConstant>
+            <errorLevel type="suppress">
+                <file name="Middlewares/Cache/Adapter/BitrixAdapter.php"/>
+            </errorLevel>
+        </UndefinedConstant>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <file name="Middlewares/Cache/Adapter/BitrixAdapter.php"/>
+            </errorLevel>
+        </UndefinedClass>
+    </issueHandlers>
+</psalm>

@@ -66,6 +66,7 @@ class CacheMiddleware
      */
     protected function handleSave(callable $handler, RequestInterface $request, array $options)
     {
+        /** @psalm-suppress MixedMethodCall */
         return $handler($request, $options)->then(
             function (ResponseInterface $response) use ($request) : ResponseInterface {
                 $this->adapter->save($request, $response);
