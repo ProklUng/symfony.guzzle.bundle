@@ -66,7 +66,7 @@ class GuzzleExtension extends AbstractExtension
     {
         switch ($lang) {
             case 'json':
-                return json_encode(json_decode($code), JSON_PRETTY_PRINT);
+                return json_encode(json_decode($code), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             case 'xml':
                 $xml = new \DomDocument('1.0');
                 $xml->preserveWhiteSpace = false;
