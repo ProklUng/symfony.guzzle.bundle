@@ -122,6 +122,15 @@ abstract class InternalGuzzleCollector extends DataCollector
         }
 
         $this->data = $data;
+
+        // Внутренние нужды. Для сообщения между разными модулями в Битриксе
+        // запускается кастомное событие OnAfterDataCollectorDone
+        if (defined('B_PROLOG_INCLUDED') && B_PROLOG_INCLUDED===true) {
+            $events = GetModuleEvents('', 'OnAfterDataCollectorDone', true);
+            foreach ($events as $event) {
+                ExecuteModuleEventEx($event, ['dataCollector' => $this]);
+            }
+        }
     }
 
     /**
